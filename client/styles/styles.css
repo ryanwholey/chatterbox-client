@@ -82,3 +82,9 @@ form input[type=text] {
 .spinner img {
     padding: 10px;
 }
+.post {
+    /*display: inline;*/
+}
+.user {
+    float:left;
+}

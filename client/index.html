@@ -7,6 +7,7 @@
 
     <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
     <!-- your scripts -->
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
@@ -15,7 +16,35 @@
     <div id="main">
       <h1>chatterbox</h1>
       <!-- Your HTML goes here! -->
+
+      <select id='rooms'></select>
+      room
+      <input type='textarea' id='roomText' ></input>
+      chat
+      <input type='textarea' id='chatText'></input>
+      <input type='button' id='submit' value='submit'></input>
+
     </div>
     <div id="chats"></div>
+    <script> 
+    $().ready(function(){
+      //submit event handler
+      $('#submit').click(function(){
+        app.addMessage();
+      });
+
+      app.displayAll();
+
+
+
+
+      // var source = new EventSource(app.server);
+      // source.addEventListener('POST', function(e){console.log(e); console.log('OMGEVENT')}, false);
+       
+    });
+
+    </script>
   </body>
 </html>
+
+
