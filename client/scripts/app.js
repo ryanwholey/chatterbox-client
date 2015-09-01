@@ -59,7 +59,7 @@ App.prototype.addMessage = function(message){
     {
     username: window.location.search.substring(10), 
     text: $('#chatText').val(), 
-    roomname: $('#roomText').val() || $(this).find(':selected').text() || 'lobby' 
+    roomname: $('#roomText').val() ||'lobby'
   };
   this.send(message);
   this.displayAll();
@@ -77,7 +77,6 @@ window.rooms = {
 };
 
 App.prototype.displayAll = function(){
-  // this._refresh();
   this.clearMessages();
 
   this.fetch(function(arr){
@@ -85,6 +84,7 @@ App.prototype.displayAll = function(){
     var all = $('<div class="post"></div>')
     var usernameDiv = $('<div class="user"></div');
     usernameDiv.text(post.username);
+    usernameDiv.addClass(post.username);
     all.append(usernameDiv);
 
     var textDiv = $('<div class="text"></div>');
@@ -112,7 +112,10 @@ App.prototype.displayAll = function(){
       }
     })
 
-  $('.user').on('click',function(event){app.friends[event.target.firstChild.nodeValue]=true;})
+  $('.user').on('click',function(event){
+    app.friends[event.target.firstChild.nodeValue]=true;
+    App.prototype._boldFriends.call(app);
+  });
   
  });
 
@@ -132,14 +135,12 @@ App.prototype._refresh = function(){
 };
 
 
-//clear room
-//display only posts with r @ roomname
-
 
 App.prototype.filterRoom = function(r){
 
-  this.clearMessages();
+  
   this.fetch(function(arr){
+    App.prototype.clearMessages.call(app);
     _.each(arr, function(post){
       if(r === post.roomname){
         var div = $('<div class="posts"></div>');
@@ -148,8 +149,12 @@ App.prototype.filterRoom = function(r){
       }
     });
   });
-  this.clearMessages();
+}
 
+App.prototype._boldFriends = function(){
+  for(var key in this.friends){
+    $('.' + key).css({"font-weight": "bold"});
+  }
 }
 
 
